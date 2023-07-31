@@ -1,0 +1,177 @@
+Environment:
+Adjacency lists:
+n = [x, b]
+x = [a]
+z = [m]
+y = [n]
+a = [n]
+b = [z, y]
+
+Question: "Is there a path from n to z"
+
+Start = n
+End = z
+
+Step 1: Generate master list
+n = [x, b]
+A = n [1, x, b]
+A.length = 2
+
+Depth: 1 
+Nodes: [1, x, b]
+Seen: none
+Next seen: x = [a]
+A = n [1, x, b] | does not have a, so add a |
+x is depth 1, new nodes at depth 2
+A += [2, a]
+A = n [1, [x, [2, a]], b]
+
+Depth: 1 
+Nodes: [1, x, b]
+Seen: x
+Next seen: b = [z, y]
+A = n [1, [x, [2, a]], b] | does not have z or y, so add z and y |
+b is depth 1, new nodes at depth 2
+A += [2, z, y]
+A = n [1, [x, [2, a]], [b, [2, z, y]]]
+
+Depth: 1
+Nodes: [1, x, b]
+Seen: x, b
+All nodes in Depth 1 visited, moving to Depth 2
+
+Depth: 2
+Nodes: [2, a, z, y]
+Seen: x, b
+Next seen: a = [n]
+A = n [1, [x, [2, a]], [b, [2, z, y]]] | includes n, so ignore n |
+A += []
+A = n [1, [x, [2, a]], [b, [2, z, y]]]
+
+Depth: 2
+Nodes: [2, a, z, y]
+Seen: x, b, a
+Next seen: z = [m]
+A = n [1, [x, [2, a]], [b, [2, z, y]]] | does not have m, so add m |
+z is depth 2, new nodes at depth 3
+A += [3, m]
+A = n [1, [x, [2, a]], [b, [2, [z, [3, m]], y]]]
+
+Depth: 2
+Nodes: [2, a, z, y]
+Seen: x, b, a, z
+Next seen: y = [n]
+A = n [1, [x, [2, a]], [b, [2, [z, [3, m]], y]]] | includes n, so ignore n |
+A += []
+A = n [1, [x, [2, a]], [b, [2, [z, [3, m]], y]]]
+
+Depth: 2
+Nodes: [2, a, z, y]
+Seen: x, b, a, z, y
+All nodes in Depth 2 visited, moving to Depth 3
+
+Depth: 3
+Nodes: [3, m]
+Seen: x, b, a, z, y
+Next seen: m = []
+A = n [1, [x, [2, a]], [b, [2, [z, [3, m]], y]]] | no new nodes |
+A += []
+A = n [1, [x, [2, a]], [b, [2, [z, [3, m]], y]]]
+
+Depth: 3
+Nodes: [3, m]
+Seen: x, b, a, z, y, m
+All nodes in Depth 3 visited, No depth 4 so move to step 2
+
+Step 2: Check for z
+Seen: x, b, a, z, y, m
+z is in Seen, so there is path to z
+
+Find path to z
+A = n [1, [x, [2, a]], [b, [2, [z, [3, m]], y]]]
+
+z parent node is b
+b -> z
+
+b parent node is n
+n -> b -> z
+
+Answer: Yes, there is a path from n to z. The path is n -> b -> z, it takes 2 steps.
+
+ENDOFSEQUENCE
+
+g = [p]
+e = [p, g]
+p = [g, e]
+r = [e, p]
+
+Question: "Is there a path from r to e"
+
+Start = r
+End = e
+
+Step 1: Generate master list
+r = [e, p]
+A = r [1, e, p]
+A.length = 2
+
+Depth: 1 
+Nodes: [1, e, p]
+Seen: none
+Next seen: e = [p, g]
+A = r [1, e, p] | does not have g, so add g |
+e is depth 1, new nodes at depth 2
+A += [2, g]
+A = r [1, [e, [2, g]], p]
+
+Depth: 1 
+Nodes: [1, e, p]
+Seen: e
+Next seen: p = [g, e]
+A = r [1, [e, [2, g]], p] | includes e, so ignore e |
+A += []
+A = r [1, [e, [2, g]], p]
+
+Depth: 1
+Nodes: [1, e, p]
+Seen: e, p
+All nodes in Depth 1 visited, moving to Depth 2
+
+Depth: 2
+Nodes: [2, g]
+Seen: e, p
+Next seen: g = [p]
+A = r [1, [e, [2, g]], p] | includes p, ignore p |
+A += []
+A = r [1, [e, [2, g]], p]
+
+Depth: 2
+Nodes: [2, g]
+Seen: e, p, g
+All nodes in Depth 2 visited, No depth 3 so move to step 2
+
+Step 2: Check for e
+Seen: e, p, g
+e is in Seen, so there is path to e
+
+Find path to e
+A = r [1, [e, [2, g]], p]
+
+e parent node is r
+r->e
+
+Answer: Yes, there is a path from r to e. The path is r->e, it takes 1 step.
+
+ENDOFSEQUENCE
+
+Environment:
+Adjacency lists:
+g = [h, p]
+h = [g, r]
+e = [p, g]
+x = [z]
+p = [g, e]
+r = [e, p, x]
+
+Question: "Is there a path from g to x"
+
